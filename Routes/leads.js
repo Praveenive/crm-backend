@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/allleads", async(req,res)=>{
     try {
-        const leads= await Leads.find();
+        const leads= await Leads.find().populate("user","email");
         if(!leads){
             res.status(404).json({message:"Leads not found"})
         }
@@ -22,9 +22,10 @@ router.get("/allleads", async(req,res)=>{
  router.post("/add", async(req,res)=>{
     try {
         let leadGeneratedDate = new Date().toJSON().slice(0,10);
+        
         const newLead = await new Leads({
-            ...req.body,date:leadGeneratedDate,assignedto:req.user._id
-        }).save()
+            ...req.body,date:leadGeneratedDate,
+                }).save()
         if(!newLead){
            return  res.status(404).json({message:"Error while adding a lead"})
         }

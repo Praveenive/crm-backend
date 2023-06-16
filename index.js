@@ -18,6 +18,6 @@ dbConnection()
 
 app.use("/user", userRouter)
 app.use("/leads",isAuthenticated, leadRouter)
-app.use("/emp",isAuthenticated,employeerouter )
+app.use("/emp",employeerouter )
 
 app.listen(PORT,()=>console.log(`Server started ${PORT}`))
