@@ -5,6 +5,7 @@ import { userRouter } from "./Routes/user.js";
 import cors from "cors"
 import { leadRouter } from "./Routes/leads.js";
 import { isAuthenticated } from "./Controllers/auth.js";
+import { employeerouter } from "./Routes/employee.js";
 
 dotenv.config();
 const app = express();
@@ -17,5 +18,6 @@ dbConnection()
 
 app.use("/user", userRouter)
 app.use("/leads",isAuthenticated, leadRouter)
+app.use("/emp",isAuthenticated,employeerouter )
 
 app.listen(PORT,()=>console.log(`Server started ${PORT}`))

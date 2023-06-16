@@ -12,24 +12,24 @@ router.post("/signup", async(req,res)=>
         console.log(user)
         if(user)
         {
-          return  res.status(400).json({data:"Email already exists"})
+          return  res.status(400).json({message:"Email already exists"})
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password,salt)
 
         user =  await new User({
-            first_name:req.body.first_name,
-            last_name:req.body.last_name,
+            firstname:req.body.firstname,
+            lastname:req.body.lastname,
             email:req.body.email,
             password:hashedPassword,
-            type_of_user:req.body.type_of_user
+            type_of_user:"employee"
         }).save()
         const token = generateJwtToken(user._id);
         res.status(202).json({message:"Signup Done",token})
         
     } catch (error) {
         console.log(error)
-        res.status(500).json({data:"Server issues"})
+        res.status(500).json({message:"Server issues"})
     }
 }
 )
@@ -47,13 +47,13 @@ router.post("/login", async(req,res)=>{
        )
        if(!validatePassword)
        {
-        return res.status(404).json({data:"Password Mismatch"})
+        return res.status(404).json({message:"Password Mismatch"})
        }
        const token = generateJwtToken(user._id);
-       res.status(202).json({data:"Loggedin successfully",token:token,role:req.body.type_of_user})
+       res.status(202).json({data:"Loggedin successfully",token:token,role:user.type_of_user})
     } catch (error) {
         console.log(error)
-        res.status(500).json({data:"Internal server error"})
+        res.status(500).json({message:"Internal server error"})
     }
 })
 

@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb"
 import mongoose from "mongoose"
 
 const leadsSchema = new mongoose.Schema({
@@ -20,7 +21,7 @@ const leadsSchema = new mongoose.Schema({
        type:String,
        required:true
     },
-    Board:{
+    board:{
       type:String,
       required:true
     },
@@ -34,6 +35,17 @@ const leadsSchema = new mongoose.Schema({
     },
     parentname:{
         type:String,
+    },
+    request:{
+        type:String,
+        required:true
+    },
+    assignedto:{
+        type:ObjectId,
+        ref:"user"
+    },
+    leadstatus:{
+        type:String
     }
 })
 const Leads = mongoose.model("leads",leadsSchema)

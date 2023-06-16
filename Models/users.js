@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
 
 const userSchema = new mongoose.Schema({
-    first_name:{
+    firstname:{
         type:String,
         required:true,
         maxlength:32
     },
-    last_name:{
+    lastname:{
         type:String,
         required:true,maxlength:32
     },
