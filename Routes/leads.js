@@ -6,7 +6,8 @@ const router = express.Router()
 
 router.get("/allleads", async(req,res)=>{
     try {
-        const leads= await Leads.find().populate("user","email");
+        const leads= await Leads.find({});
+        console.log(leads)
         if(!leads){
             res.status(404).json({message:"Leads not found"})
         }
