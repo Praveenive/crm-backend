@@ -35,8 +35,7 @@ router.get("/allmanager" ,async(req,res)=>{
 
 router.post("/addemployee", async(req,res)=>{
     try {
-        const user = await User.findOne({email:req.body.email})
-        console.log(user)
+        let user = await User.findOne({email:req.body.email})
         if(user){
             return res.status(400).json({message:"Email already Exists"})
         }

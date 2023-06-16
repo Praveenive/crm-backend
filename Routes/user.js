@@ -50,7 +50,7 @@ router.post("/login", async(req,res)=>{
         return res.status(404).json({message:"Password Mismatch"})
        }
        const token = generateJwtToken(user._id);
-       res.status(202).json({data:"Loggedin successfully",token:token,role:user.type_of_user})
+       res.status(202).json({data:"Loggedin successfully",token:token,role:user.type_of_user,id:user._id})
     } catch (error) {
         console.log(error)
         res.status(500).json({message:"Internal server error"})
