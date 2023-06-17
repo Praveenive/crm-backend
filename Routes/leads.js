@@ -25,7 +25,7 @@ router.get("/allleads", async(req,res)=>{
         let leadGeneratedDate = new Date().toJSON().slice(0,10);
         
         const newLead = await new Leads({
-            ...req.body,date:leadGeneratedDate
+            ...req.body,date:leadGeneratedDate,assignedto:req.user._id
                 }).save()
         if(!newLead){
            return  res.status(404).json({message:"Error while adding a lead"})
@@ -73,7 +73,7 @@ router.get("/allleads", async(req,res)=>{
  router.get("/myleads", async (req, res) => {
     try {
         const leads = await Leads
-            .find({ assignedto: req.id })
+            .find({ assignedto: req.user._id })
             console.log(leads)
         if (!leads) {
             return res.status(400).json({ message: "Couldn't any Document" })
